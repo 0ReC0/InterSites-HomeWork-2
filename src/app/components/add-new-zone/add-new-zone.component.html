@@ -1,0 +1,32 @@
+<form class="addingForm" [formGroup]="AddNewZoneGroup">
+    <mat-form-field class="formItem">
+        <mat-label>Time Zone</mat-label>
+        <input matInput id="offset" formControlName="offset">
+        <mat-error *ngIf='this.AddNewZoneGroup.controls["offset"].invalid 
+         && (this.AddNewZoneGroup.controls["offset"].dirty 
+        || this.AddNewZoneGroup.controls["offset"].touched)'>
+            Time Zone must be like + or - and number of offset, example: +0
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="formItem">
+        <mat-label>City Name</mat-label>
+        <input matInput id="cityName" formControlName="cityName">
+        <mat-error *ngIf='this.AddNewZoneGroup.controls["cityName"].invalid 
+        && (this.AddNewZoneGroup.controls["cityName"].dirty 
+       || this.AddNewZoneGroup.controls["cityName"].touched)'>
+            City name lenght must be less then 40 symbols
+        </mat-error>
+    </mat-form-field>
+    <div>
+        <ng-container *ngIf="this.AddNewZoneGroup.invalid; else Valid">
+            <button mat-flat-button disabled>
+                Add new Zone
+            </button>
+        </ng-container>
+        <ng-template #Valid>
+            <button mat-flat-button style="background-color: rgb(17, 199, 17);" (click)="addNewZone()">
+                Add new Zone
+            </button>
+        </ng-template>
+    </div>
+</form>
