@@ -19,9 +19,7 @@ export class ZoneListComponent implements OnInit, AfterViewInit, OnDestroy {
   filteredListOfCitiesOfZones: Observable<string[]>;
 
   searchedZone: TimeZone = null;
-
-  detectChangesInterval;
-
+  detectChangesInterval: NodeJS.Timer;
   constructor(
     private _timeZoneService: TimeZoneServiceService,
     private cdr: ChangeDetectorRef) {
@@ -44,6 +42,25 @@ export class ZoneListComponent implements OnInit, AfterViewInit, OnDestroy {
         return this._filter(value);
       })
     );
+
+    this.timeZoneSubscription = this._timeZoneService.TimeZonesAsObservable.subscribe(data => {
+      this.localZones = data;
+
+      this.listOfCitiesOfZones = [];
+      this.localZones.forEach(el => {
+        this.listOfCitiesOfZones.push(el.city);
+      });
+
+      this.filteredListOfCitiesOfZones = this.cityInput.valueChanges.pipe(
+        startWith(''),
+        map(value => {
+          if (value === '') {
+            this.searchedZone = null;
+          }
+          return this._filter(value);
+        })
+      );
+    });
 
     this.detectChangesInterval = setInterval(() => { this.cdr.detectChanges(); }, 1000);
   }
@@ -84,27 +101,6 @@ export class ZoneListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   GotSearch(ev: any) {
     this.searchedZone = this.localZones.find(el => el.city === ev.option.value);
-  }
-
-  ngAfterViewInit() {
-    this.timeZoneSubscription = this._timeZoneService.TimeZonesAsObservable.subscribe(data => {
-      this.localZones = data;
-
-      this.listOfCitiesOfZones = [];
-      this.localZones.forEach(el => {
-        this.listOfCitiesOfZones.push(el.city);
-      });
-
-      this.filteredListOfCitiesOfZones = this.cityInput.valueChanges.pipe(
-        startWith(''),
-        map(value => {
-          if (value === '') {
-            this.searchedZone = null;
-          }
-          return this._filter(value);
-        })
-      );
-    });
   }
 
   ngOnDestroy() {

@@ -43,7 +43,8 @@
                 Location name: {{this.searchedZone.city}}
             </div>
             <div class="buttons">
-                <button [routerLink]='"edit/" + this.searchedZone.id' mat-flat-button style="background-color: rgb(255, 217, 0);">
+                <button [routerLink]='"edit/" + this.searchedZone.id' mat-flat-button
+                    style="background-color: rgb(255, 217, 0);">
                     Edit
                 </button>
                 <button (click)="deleteZone(this.searchedZone.id)" mat-flat-button color="warn">
