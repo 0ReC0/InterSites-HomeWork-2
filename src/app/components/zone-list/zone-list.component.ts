@@ -10,7 +10,7 @@ import { TimeZone } from '../../models/timeZone.model';
   templateUrl: './zone-list.component.html',
   styleUrls: ['./zone-list.component.css']
 })
-export class ZoneListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ZoneListComponent implements OnInit, OnDestroy {
   private timeZoneSubscription: Subscription;
   localZones: Array<TimeZone>;
   cityInput = new FormControl('');
