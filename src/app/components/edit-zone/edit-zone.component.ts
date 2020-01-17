@@ -35,8 +35,8 @@ export class EditZoneComponent implements OnInit {
     });
   }
 
-  updateTimeZone() {
-    this._timeZoneService.updateZone(this.EditingTimeZone.id,
+  async updateTimeZone() {
+    await this._timeZoneService.updateZone(this.EditingTimeZone.id,
       this.EditZoneGroup.controls.cityName.value,
       this.EditZoneGroup.controls.offset.value);
 

@@ -19,7 +19,7 @@ export class ZoneListComponent implements OnInit, OnDestroy {
   filteredListOfCitiesOfZones: Observable<string[]>;
 
   searchedZone: TimeZone = null;
-  detectChangesInterval: NodeJS.Timer;
+  detectChangesInterval: any;
   constructor(
     private _timeZoneService: TimeZoneServiceService,
     private cdr: ChangeDetectorRef) {
